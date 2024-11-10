@@ -49,6 +49,15 @@ For coding and development, we will use **Visual Studio Code** as our local edit
 - **Node.js** v18.17.1 (Back-end)
 - **MySQL** Ver 15.1 (Database)
 - **Visual Studio Code** (Code editor)
+- **Express** ^4.21.1 (Framework)
+
+## Setup Enviroment For Backend
+- npm init -y
+- create index.js
+- npm install express
+- node index.js (For every update we need to type this) For solve this issue we'll install npm install nodemon
+-     "start" : "node index.js",
+    "start:dev" : "nodemon index.js", add this on package.json file under script
 
 ## Summary
 
