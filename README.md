@@ -56,8 +56,8 @@ For coding and development, we will use **Visual Studio Code** as our local edit
 - create index.js
 - npm install express
 - node index.js (For every update we need to type this) For solve this issue we'll install npm install nodemon
--     "start" : "node index.js",
-    "start:dev" : "nodemon index.js", add this on package.json file under script
+-     "start" : "node index.js", 
+    "start:dev" : "nodemon index.js", add this 2 line in package.json file under script
 
 ## Summary
 
