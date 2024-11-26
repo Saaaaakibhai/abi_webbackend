@@ -6,6 +6,10 @@ const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const registerRoute = require('./register'); // import the register route
+const loginRoute = require('./login');
+
+//
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -20,6 +24,7 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // Directly use the registration route here
+app.use('/login', loginRoute);
 app.use('/register', registerRoute); // Now the backend listens on /register
 
 // Create the database connection using environment variables
