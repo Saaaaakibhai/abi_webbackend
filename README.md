@@ -56,9 +56,11 @@ For coding and development, we will use **Visual Studio Code** as our local edit
 - create index.js
 - npm install express
 - node index.js (For every update we need to type this) For solve this issue we'll install npm install nodemon
--     "start" : "node index.js", 
-    "start:dev" : "nodemon index.js", add this 2 line in package.json file under script
+- "start" : "node index.js", 
+- "start:dev" : "nodemon index.js", add this 2 line in package.json file under script
 
+## Mysql Setup
+- npm install mysql2
 ## Summary
 
 This admin panel is essential for managing users, admins, and server-side functionalities for ABI. Please follow the provided installation guides to set up your local environment for both front-end and back-end development.
