@@ -31,7 +31,15 @@ router.post('/', (req, res) => { // Ensure this matches the frontend endpoint
       return res.status(401).json({ message: 'Incorrect password' });
     }
 
-    res.status(200).json({ message: 'Login successful', user: { phone: user.phone_no } });
+    // Return user data including profile image URL
+    res.status(200).json({ 
+      message: 'Login successful', 
+      user: { 
+        phone: user.phone_no, 
+        name: user.name, 
+        profileImage: user.profile_image || '/default-profile.png' // Default image if not available
+      } 
+    });
   });
 });
 
