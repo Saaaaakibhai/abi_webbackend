@@ -7,10 +7,13 @@ const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
 const registerRoute = require('./register'); // import the register route
 const loginRoute = require('./login');
+const path = require('path');
+
 
 //
 
 const app = express();
+
 const port = process.env.PORT || 5000;
 
 // Enable CORS for all routes
@@ -22,10 +25,10 @@ app.use(cors({
 
 // Middleware
 app.use(bodyParser.json());
-
 // Directly use the registration route here
 app.use('/login', loginRoute);
 app.use('/register', registerRoute); // Now the backend listens on /register
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Create the database connection using environment variables
 const db = mysql.createConnection({

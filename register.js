@@ -1,7 +1,21 @@
 const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const path = require('path');
 const router = express.Router();
+
+// Multer setup for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads'); // Save files in the "uploads" directory
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`); // Unique filename
+  },
+});
+
+const upload = multer({ storage });
 
 // Database connection
 const db = mysql.createConnection({
@@ -12,26 +26,43 @@ const db = mysql.createConnection({
 });
 
 // Registration Route
-router.post('/', async (req, res) => {
-  const { first_name, last_name, email_id, phone_no, nid_no, address, password, retypepassword } = req.body;
+router.post('/', upload.single('photo'), async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    email_id,
+    phone_no,
+    nid_no,
+    address,
+    password,
+    retypepassword,
+  } = req.body;
 
-  // Ensure that the password and retypepassword match before continuing
   if (password !== retypepassword) {
     return res.status(400).json({ message: 'Passwords do not match.' });
   }
 
   try {
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Insert the new user into the database
+    const photoPath = req.file ? req.file.filename : null;
+
     const query = `
       INSERT INTO register_userinfo 
-      (first_name, last_name, email_id, phone_no, nid_no, password, address, retypepassword) 
+      (first_name, last_name, email_id, phone_no, nid_no, password, address, userimage) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    
-    const values = [first_name, last_name, email_id, phone_no, nid_no, hashedPassword, address, hashedPassword];
+
+    const values = [
+      first_name,
+      last_name,
+      email_id,
+      phone_no,
+      nid_no,
+      hashedPassword,
+      address,
+      photoPath,
+    ];
 
     db.execute(query, values, (err, results) => {
       if (err) {
