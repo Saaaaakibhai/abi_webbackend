@@ -3,6 +3,7 @@ const multer = require("multer");
 const router = express.Router();
 const authenticateToken = require("../middleware/authenticatetoken");
 const mysql = require("mysql2");
+
 const db = mysql.createConnection({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
